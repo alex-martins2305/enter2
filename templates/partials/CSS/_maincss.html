@@ -1,47 +1,410 @@
-    .main_form {
-        margin-top: 15%;
-        text-align: center;
-        width: 100%;
-        font-size: 4rem;
-        /* margin-left: 30%;
-        margin-right: 30%; */
+    /* VARIAVEIS */
+    :root{
+    --bs-bg-opacity: 1;
+    --bs-light: #f8f9fa;
+    --bs-dark-rgb: 33,37,41;
     }
- 
-    .name, .input_beneficio {
-        text-align: center;
-        font-size: 4rem;
-        background-color: Gainsboro ;
-        <!-- border: 0.5rem solid; -->
 
+    body {
+        font-family: "open sans", "segoe ui", sans-serif;
+        font-size: 20px;
+        margin: 0;
+        padding: 0;
     }
-    .ou {
-        margin-top: 4rem;
+
+    .page {
+        display: flex;
+        margin-top: 10rem;
+        justify-content: center;
+        min-height: 100vh;
+    }
+    .containe {
+        width: 100%;
+        max-width: 50rem;
+        z-index: 1;
+        justify-content: center ;     
+    }
+    .formulario, .formulario_register{
+        background-color: #FFFFFF;
+        padding: 40px;        
+    }
+   
+        
+    /* BACKGROUND */
+    .background, .backdrop {
+        background-color: #3f689c;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-size: cover;
+        z-index: -1;
+    }
+    .backdrop {
+        background: #333333;
+        filter: alpha(opacity=90);
+        opacity: .8;
+        -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=90)";
+    }
+  
+    .background {
+        <!-- background-image: url('http://images.unsplash.com/photo-1520846692007-5da001f1b57c?auto=format&fit=crop&w=1000&q=80');
+        /* background-image: url("../../fundo.png"); */ -->
+        width: 100%;
+    }
+    
+    /* HEADER */
+    .formulario .header, .formulario_register .header {
+        text-align: top;
         margin-bottom: 4rem;
+    }
+    .formulario .header h3, .formulario_register .header h3 {
+        font-weight: lighter;
+        font-size: 35px;
+        margin: 15px 0;
+    }
+
+    /* MENU */
+    .segundo_menu {
+        width: 100%;
+        text-align: center; 
+        background-color: rgba(var(--bs-dark-rgb),var(--bs-bg-opacity)) !important;
+        height: auto;
+        align-items: center;
+        padding-bottom: 10px;
+    }
+
+    .choice {
+        align-self: center;
+    }
+
+    .btn_filtrar {
+        max-height: 1.5rem;
+        margin-bottom: 0.3rem;
+    }
+
+    
+    /* .username {
+        margin-right: 10%;
+    }
+
+    .link_sair {
+        padding-right: 20px;
+    } */ 
+ 
+    /* logo */
+    .formulario .header .logo, .formulario_register .header .logo {
+        border: 1px solid #CCC;
+        border-radius: 50%;
+        margin: 0 auto;
+        width: 87px;
+        height: 87px;
+    }
+    .formulario .header .logo .logo-area, .formulario_register .header .logo .logo-area {
+        border: 1px solid #CCC;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 75px;
+        height: 75px;
+        margin: 5px;
+    }
+    /* fonte */
+    .formulario .header .logo .logo-area {
+        background: #F2F2F2;
+        color: #0D0D0D;
+        font-size: 25px;
+        font-weight: bold;
         }
-    .input_beneficio {
-        margin-bottom: 30px;
+    .formulario .header .logo .red, .formulario_register .header .logo .red{ 
+        color: #DC143C; 
+        }
+     .formulario_register .header .logo .logo-area {
+        background: #F2F2F2;
+        color: #F2F2F2;
+        font-size: 25px;
+        font-weight: bold;
+        }
+     
+    /* INPUT */
+    .formulario .icone, .formulario_register .icone {
+        width: 40px;
+        vertical-align: top;
+        border: 0;/**/
+        padding: 0;/**/
     }
-    .btn_consultar {
-        margin-top: 3.5rem;
-        margin-bottom: 3.5rem;
+    .formulario .input, .formulario_register .input {
+        border-bottom: 1px solid #CCCCCC;
+        margin-top: 20px;
+        font-size: 25px;
+        color: #9e9e9e;
+        padding-bottom: 10px;
+        margin-bottom: 45px;
     }
-    .dentro_btn {
-        font-size: 4rem;
+    .formulario .input input, .formulario_register .input input {
+        border: 0;
+        width: calc(100% - 70px);
+        padding: 0;/**/
+    }
+    .formulario .input input:focus, .formulario_register .input input:focus {
+        outline: none;
+    }
+    .formulario #show-password, .formulario_register #show-password {
+        cursor: pointer;
+    }
+    
+    /* BOTOES */
+    .formulario .btn, .formulario_register .btn{
+        cursor: pointer;
+        display: block;
+        border: 0;
+        height: 35px;
+        padding: 15px;
+        font-size: 22px;
+        text-align: center;
+        transition: background .3s;
+    }
+    .formulario .btn:focus, .formulario_register .btn:focus {
+        outline: none;
+    }
+    .formulario .btn-login, .formulario_register .btn-login {
+        background: #2f7fd6;
+        color: #FFFFFF;
+        margin-top: 30px;
+        width: 100%;
+        height: 60px;
+    }
+
+    .formulario .btn-login:hover, .formulario_register .btn-login:hover {
+        background: #1e6fb8;
+    }
+    .formulario .btn-registrar, .formulario_register .btn-registrar {
+        background: #dbdbdb;
+        color: #676464;
         text-decoration: none;
+        margin-top: 15px;
+        height: 60px;
+    }
+    .formulario .btn-cancelar, .formulario_register .btn-cancelar{
+        background: #dbdbdb;
+        color: #676464;
+        text-decoration: none;
+        margin-top: 15px;
+        height: 60px;
+    }
+    .formulario .btn-registrar:hover, .formulario_register .btn-registrar:hover{
+        background: #cdcdcd;
+    }
+    
+    /* SEPARADOR */
+    .formulario .separator, .formulario_register .separator{
+        margin: 20px 0;
+        border-top: 2px solid #CCCCCC;
+        position: relative;
+    }
+    .formulario .separator-text, .formulario_register .separator-text{
+        display: block;
+        position: absolute;
+        top: -11px;
+        left: 50%;
+        margin-left: -22px;
+        padding: 0px 10px;
+        background: #FFFFFF;
+        color: #8a8a8a;
+    }
+    
+    /* FORMULÁRIO PADRÃO DASHBOARD */
+    .task-list {
+        z-index: 1;
+        background-color:#333333;
+        margin-left: 5%;
+        margin-right: 5%;
+        align-items: center;
+    }
+
+    .main-table {
+        width: 100%;
+        z-index: 1;
+    }
+    .row_atrasadas {
+        color:#FF4500;
+    }
+    .row_dodia {
+        color:yellow;
+    }
+    .row_futuras {
+        color:blue;
+    }   
+    .row_finalizadas {
+        color:gray;
+    }
+    .row_justificadas {
+        color:purple;
+    }
+    .paragrafo_inicio, .paragrafo_etapas{
+        width: 30%;
+        text-align: center;
+    }
+    .paragrafo_titulo {
+        width: 40%;
+        text-align: left;
+    }
+    .paragrafo_user {
+        width:7rem;
+    }
+    .semtarefas {
+        width: 100%;
+        color:#CCCCCC;
+        font-size: 1.8rem;
+        text-align: center;
+        align-items: center;
+        margin-top: 1.5rem;
+        margin-bottom: 1.5rem;
+     }
+   
+    .col_atrasadas1 {
+        width: 25%
+    }
+    .col_atrasadas2,.col_atrasadas2 {
+        width: 20%;
+    }
+    .link_atrasadas {
+        color:#FF4500;
     }
      
-    .messagesEntra {
-        font-size: 4rem;
-        color: green;
-        
+    /* ATRIBUIÇÃO */
+    .attrib {
+    text-align: center;
+    margin-top: 7px;
+    color: #aaa;
+    line-height: 25px;
     }
-    .messagesLibera {
-        font-size: 4rem;
-        color: blue;
-        
+.row_with_link {
+    text-decoration: none;
     }
-    .messagesError {
-        font-size: 4rem;
-        color: red;
-        
+   
+   /* BOTÃO FLUTUANTE */
+.botao {  
+    display: inline-block;  
+    padding: 0.8em 1.2em;   
+    margin-left: 5%; 
+    background-color:#0987D2;  
+    text-decoration: none;  
+    color: #ffffff;
+    border-radius:50px;
+    font-family:'open_sansregular';  
+} 
+ 
+.flutuante {  
+    display: inline-block;  
+    -webkit-transition-duration: 0.4s;  
+    transition-duration: 0.4s;  
+    -webkit-transition-property: -webkit-transform;  
+    transition-property: transform;  
+    -webkit-transform: translateZ(0);  
+    -ms-transform: translateZ(0);  
+    transform: translateZ(0);  
+    box-shadow: 0px 4px 2px 0px rgba(98, 98, 98, 0.69);
+}  
+  
+.flutuante:hover {  
+    -webkit-transform: translateY(-5px);  
+    -ms-transform: translateY(-5px);  
+    transform: translateY(-5px);
+    box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.69);  
+} 
+
+/* FORMULÁRIO NOVA TAREFA */
+.label_nova_tarefa {
+    text-align: center;
+    color:#aaa;
+    margin-top: 1rem;
+}
+
+#id_titulo_label, #id_descricao_label, #id_need_init_at_label, #id_pessoa_label {
+    color: #aaa;
+}
+
+.container_controls {
+    display: flex;
+    justify-content: center;
+    margin-top: 1.8rem;
+}
+.control_btns {
+    width: auto;
+}
+
+#id_pessoa {
+    font-size: 1.5rem;
+    margin-top:1rem ;
+}
+
+/* TAREFA CLICADA */
+
+.tarefa_main {
+    background-color: #333333;
+    margin-top: 1%;
+    margin-left: 15%;
+    margin-right: 15%;
+    padding: 5%;
+
+}
+.dados_basicos {
+    color: #aaa;
+}
+
+.titulo_tarefa_clicada {
+    font-size: 3rem;
+    margin-bottom: 2rem;
+}
+
+.descricao_tarefa_clicada {
+    font-size:2rem;
+    margin-bottom: 1.5rem;
+}
+
+.status_tarefa_clicada {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.controles_da_tarefas {
+    color: #aaa;
+    margin-top: 1%;
+}
+.botoes_iniciar_justificar, .botoes_finalizar_justificar{
+    max-width: 37%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.btn_iniciar1, .btn_justificar1, .btn_apagar1  {
+    width: 90%;
+}
+.obs {
+    width: 60%;
+    margin-bottom: 2%;
+}
+
+.texto_obs {
+    margin-top: 3%;
+}
+
+ 
+@media (max-width: 261px) {
+    .xs-hidden {
+        display: none !important;
     }
+    }
+    @media (min-width: 262px) {
+    .xs-show {
+        display: none !important;
+    }
+    }
+
+.teste_de_link {
+    text-decoration: none;
+    color: red;
+}

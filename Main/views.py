@@ -1,54 +1,95 @@
 from django.shortcuts import render, redirect
-import xlrd2
 from .models import Aposentados
 from datetime import date, datetime
+#to manipule excel files
+import xlrd2
+#to login
+from django.contrib.auth.models import User
+from django.contrib import auth, messages
+
+def login(request):
+
+    if request.user.is_authenticated:
+        return redirect ('index')
+    else:
+        if request.method=='POST':
+            email_user=request.POST['email_user']
+            password=request.POST['password']
+            if email_user=="" or password== "":
+                messages.error(request, 'Para fazer Login é necessário digitar seu endereço de email ou nome de usuário.')
+                return redirect('login')
+            if User.objects.filter(username=email_user).exists():
+                name=User.objects.filter(username=email_user).values_list('username', flat=True).get()
+                user=auth.authenticate(request, username=name, password=password)
+                if user is not None:
+                    auth.login(request, user)
+                return redirect('index')
+            else:
+                if User.objects.filter(email=email_user).exists():
+                    name=User.objects.filter(email=email_user).values_list('username', flat=True).get()
+                    user=auth.authenticate(request, username=name, password=password)
+                    if user is not None:
+                        auth.login(request, user)
+                    return redirect('index')
+                else:
+                    messages.error(request, 'Verifique seu login e senha.')
+                    return redirect('login')
+        else:
+            return render(request, 'login.html')
+        
+def logout(request):
+    auth.logout(request)
+    return redirect('login')
 
 def index(request):
-    if request.method == 'POST':
-        conta=request.POST['conta']
-        beneficio=request.POST['beneficio']
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            conta=request.POST['conta']
+            beneficio=request.POST['beneficio']
 
-        #validation datas
-        if conta!="" and beneficio!="":
-            messageError="Não informe conta e benefício juntos." 
-            return render (request, 'index.html', {'messageError':messageError})
-        if conta=="" and beneficio=="":
-            messageError="Informe conta ou benefício para pesquisa." 
-            return render (request, 'index.html', {'messageError':messageError})
-        if len(str(conta))<=2 and len(str(beneficio))<=7:
-            messageError="Quantidade de dígitos insuficientes para pesquisa" 
-            return render (request, 'index.html', {'messageError':messageError})
-        try:
+            #validation datas
+            if conta!="" and beneficio!="":
+                messageError="Não informe conta e benefício juntos." 
+                return render (request, 'index.html', {'messageError':messageError})
+            if conta=="" and beneficio=="":
+                messageError="Informe conta ou benefício para pesquisa." 
+                return render (request, 'index.html', {'messageError':messageError})
+            if len(str(conta))<=2 and len(str(beneficio))<=7:
+                messageError="Quantidade de dígitos insuficientes para pesquisa" 
+                return render (request, 'index.html', {'messageError':messageError})
+            try:
+                if conta!="":
+                    conta1=float(conta)
+                if beneficio!="":
+                    beneficio1=float(beneficio)
+            except:
+                messageError="informe apenas números para pesquisa" 
+                return render (request, 'index.html', {'messageError':messageError})        
+    
             if conta!="":
-                conta1=float(conta)
+                aposentado=Aposentados.objects.filter(conta__icontains=conta).first()
             if beneficio!="":
-                beneficio1=float(beneficio)
-        except:
-            messageError="informe apenas números para pesquisa" 
-            return render (request, 'index.html', {'messageError':messageError})        
- 
-        if conta!="":
-            aposentado=Aposentados.objects.filter(conta__icontains=conta).first()
-        if beneficio!="":
-            aposentado=Aposentados.objects.filter(beneficio__icontains=beneficio).first()
-        if aposentado:
-            if int(aposentado.idade.split('.')[0])<=78 and float(aposentado.analfabeto)!=1 and float(aposentado.limite_vigente)==1:
-            # quantidade_dias = abs((aposentado.ultimo_atendimento - date.today()).days)
-            #a linha abaixo deverá ser ativada quando se quiser filtrar clientes que foram atendidos a mais de 90 dias.
-            # if aposentado.idade<=78 and aposentado.alfabetizado==1 and aposentado.limite_vigente==1 and quantidade_dias>=90:   
-                message="ENTRAR" 
-                aposentado.ultimo_atendimento=date.today()
-                aposentado.save()
-                return render (request, 'index.html', {'message':message})
+                aposentado=Aposentados.objects.filter(beneficio__icontains=beneficio).first()
+            if aposentado:
+                if int(aposentado.idade.split('.')[0])<=78 and float(aposentado.analfabeto)!=1 and float(aposentado.limite_vigente)==1:
+                # quantidade_dias = abs((aposentado.ultimo_atendimento - date.today()).days)
+                #a linha abaixo deverá ser ativada quando se quiser filtrar clientes que foram atendidos a mais de 90 dias.
+                # if aposentado.idade<=78 and aposentado.alfabetizado==1 and aposentado.limite_vigente==1 and quantidade_dias>=90:   
+                    message="ENTRAR" 
+                    aposentado.ultimo_atendimento=date.today()
+                    aposentado.save()
+                    return render (request, 'index.html', {'message':message})
+                else:
+                    message1="LIBERAR"
+                    return render (request, 'index.html', {'message1':message1})
             else:
-                message1="LIBERAR"
-                return render (request, 'index.html', {'message1':message1})
-        else:
-            messageError="Cliente não encontrado."  
-            return render (request, 'index.html', {'messageError':messageError})
+                messageError="Cliente não encontrado."  
+                return render (request, 'index.html', {'messageError':messageError})
 
+        else:
+            return render (request, 'index.html')
     else:
-        return render (request, 'index.html')
+        return redirect ('login')
 
 def load_data(request):
     if request.method == 'POST':

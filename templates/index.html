@@ -1,8 +1,13 @@
-{% extends 'base.html'%}
+{% extends 'base2.html'%}
 {% load static %}
-{% block title %} Consulta Clientes {% endblock%}    
 
 {% block content%}
+<title>consulta clientes</title>
+
+    <!--include this line because external css isn't load in production-->
+    <style>
+        {% include 'partials/CSS/_maincss2.html' %} 
+    </style>
 <body>
     <!-- MELHOR DEFINIR O BODY EM CADA HTML, DEIXANDO DE FORA DO BASE.HTML, ASSIM É POSSIVEL DEFINIR PROPRIEDADES ESPECIFICAS DE CADA PÁGINA, POR EXEMPLO: overflow: hidden. -->
 
@@ -26,8 +31,9 @@
             <div><span class="messagesEntra">{{message}}</span></div>
             <div><span class="messagesLibera">{{message1}}</span></div>
             <div><span class="messagesError">{{messageError}}</span></div>
-        </strong>
-        
+        </strong>  
+        <a href="{% url 'logout' %}">Sair</a>
+
     </form>
 </body>
 {% endblock%}
