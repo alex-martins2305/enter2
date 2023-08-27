@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form class="main_form"action="{% url 'index' %}" method="POST">
+        {% csrf_token %}
+        <div class="label">
+            <label>Conta</label>
+        </div>
+        <div>
+            <input class="name" name="conta">
+        </div>
+        <div><p>ou</p></div>
+        <div class="label" >
+            <label >Benefício</label>
+        </div>
+        <div>
+            <input class="input_beneficio" name="beneficio">
+        </div>
+        <button type="submit" class="btn btn-success btn_ok">OK</button>
+        <strong>
+            <div><span class="messagesEntra">{{message}}</span></div>
+            <div><span class="messagesLibera">{{message1}}</span></div>
+            <div><span class="messagesError">{{messageError}}</span></div>
+        </strong>
+        
+    </form>
+</body>
+<style>
+    .main_form {
+        margin-top: 50px;
+        text-align: center;
+        margin-left: 30%;
+        margin-right: 30%;
+    }
+    .label {
+        text-align: left;
+    }
+    .name, .input_beneficio {
+        text-align: center;
+    }
+    .input_beneficio {
+        margin-bottom: 30px;
+    }
+
+    .btn_ok {
+        margin-bottom: 30px;
+    }
+    .messagesEntra {
+        color: green;
+        
+    }
+    .messagesLibera {
+        color: blue;
+        
+    }
+    .messagesError {
+        color: red;
+        
+    }
+
+</style>
+</html>

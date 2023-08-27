@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h3>Digite ou cole o caminho do arquivo excel onde estão os dados para serem inseridos no Banco.</h3>
+    <h5 style="color: red;">Importante: Para funcionar deve usar barra normal. exemplo: D:/BANCO/inss/relatorio1525.xls</h5>
+    <form action="{% url 'load_data' %}" method="POST" >
+        {% csrf_token %}
+        <input name="adress">
+        <button type="submit" class="btn btn-success" >Upload</button>
+</body>
+
+<!-- <script>
+    function exibir() {
+        var name = document.getElementById("arquivo").files[0].name
+        document.getElementById(arquivo2).value=name;
+    } 
+</script> -->
+</html>
+
