@@ -13,7 +13,7 @@ def index(request):
             messageError="Não informe conta e benefício juntos." 
             return render (request, 'index.html', {'messageError':messageError})
         if conta=="" and beneficio=="":
-            messageError="Informe conta e benefício juntos para pesquisa." 
+            messageError="Informe conta ou benefício para pesquisa." 
             return render (request, 'index.html', {'messageError':messageError})
         if len(str(conta))<=2 and len(str(beneficio))<=7:
             messageError="Quantidade de dígitos insuficientes para pesquisa" 
