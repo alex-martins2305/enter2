@@ -18,7 +18,7 @@ def login(request):
             if email_user=="" or password== "":
                 messages.error(request, 'Para fazer Login é necessário digitar seu endereço de email ou nome de usuário.')
                 return redirect('login')
-            if User.objects.filter(username=email_user).exists():
+            if User.objects.filter(username=email_user.lower()).exists():
                 name=User.objects.filter(username=email_user).values_list('username', flat=True).get()
                 user=auth.authenticate(request, username=name, password=password)
                 if user is not None:
