@@ -1,27 +1,33 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
+{% extends 'base.html'%}
+{% load static %}
+{% block title %} Consulta Clientes {% endblock%}    
+
+{% block content%}
 <body>
-    <label id="label1">Caminho</label>
-    <input type="file" id="arquivo">
-    <button onclick="exibir()">Caminho</button>
+    <!-- MELHOR DEFINIR O BODY EM CADA HTML, DEIXANDO DE FORA DO BASE.HTML, ASSIM É POSSIVEL DEFINIR PROPRIEDADES ESPECIFICAS DE CADA PÁGINA, POR EXEMPLO: overflow: hidden. -->
+
+    <form class="main_form"action="{% url 'index' %}" method="POST">
+        {% csrf_token %}
+        <div class="label">
+            <label>Conta</label>
+        </div>
+        <div>
+            <input class="name" name="conta">
+        </div>
+        <div><p>ou</p></div>
+        <div class="label" >
+            <label >Benefício</label>
+        </div>
+        <div>
+            <input class="input_beneficio" name="beneficio">
+        </div>
+        <button type="submit" class="btn btn-success btn_consultar">Consultar</button>
+        <strong>
+            <div><span class="messagesEntra">{{message}}</span></div>
+            <div><span class="messagesLibera">{{message1}}</span></div>
+            <div><span class="messagesError">{{messageError}}</span></div>
+        </strong>
+        
+    </form>
 </body>
-</html>
-
-
-<script>
-    function exibir() {
-    // Get the file input element
-    var fileInput = document.getElementById("label1");
-
-    // Get the value of the file input (i.e. the file name)
-    var fileName = fileInput.files[0];
-
-    // Use the file name to update a label or other element
-    document.getElementById("label1").innerHTML = fileName;
-    }
-</script>
+{% endblock%}
